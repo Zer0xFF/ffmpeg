@@ -23,14 +23,14 @@ int	open(const char *path, int mode, ...)
 	return sceKernelOpen(path,mode,0);
 }
 
-void *	 mmap(void *addr, size_t len, int prot, int flags, int fd, off_t offset)
-{
-	void *res;
-	sceKernelMmap(addr,len,prot,flags,fd,offset,&res);
-	return res;
-}
+// void *	 mmap(void *addr, size_t len, int prot, int flags, int fd, off_t offset)
+// {
+// 	void *res;
+// 	sceKernelMmap(addr,len,prot,flags,fd,offset,&res);
+// 	return res;
+// }
 
-/*
+
 int nanosleep(const struct timespec *ts0, struct timespec *ts1)
 {
 	SceKernelTimespec reqTs;
@@ -98,11 +98,11 @@ off_t lseek(int fildes, off_t offset, int whence)
 	return sceKernelLseek(fildes,offset,whence);
 }
 
-int	munmap(void *addr, size_t len)
-{
-	return sceKernelMunmap(addr,len);
-}
-*/
+// int	munmap(void *addr, size_t len)
+// {
+// 	return sceKernelMunmap(addr,len);
+// }
+
 char *tempnam(const char *dir, const char *pfx)
 {
 	// mv todo implement this correctly

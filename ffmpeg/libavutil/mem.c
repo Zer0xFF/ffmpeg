@@ -32,6 +32,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
+#include <sys/mman.h>
 #if HAVE_MALLOC_H
 #include <malloc.h>
 #endif
@@ -42,6 +43,17 @@
 #include "dynarray.h"
 #include "intreadwrite.h"
 #include "mem.h"
+
+int GetAllocationSize(void* ptr);
+void * mremap(void * old_address, size_t old_size, size_t new_size, int flags)
+{
+        void * ptr = mmap(NULL,new_size,0x01|0x02,0x1000|0x0002,-1,0);
+
+        memcpy(ptr, old_address, old_size);
+        munmap(old_address, old_size);
+        return ptr;
+
+}
 
 #define DEBUG_MEMORY_OUTPUT 0
 #ifdef MALLOC_PREFIX
@@ -105,6 +117,18 @@ void AddToAllocationTable(void* ptr, int size)
 	}
 }
 
+int GetAllocationSize(void* ptr)
+{
+	for(int i=0;i<NUM_TABLE_ENTRIES;++i)
+	{
+		if (allocationTable[i].ptr == ptr)
+		{
+			return allocationTable[i].size;
+		}
+	}
+	return 0;
+}
+
 void RemoveFromAllocationTable(void* ptr)
 {
 	for(int i=0;i<NUM_TABLE_ENTRIES;++i)
@@ -151,6 +175,13 @@ void *av_malloc(size_t size)
         ptr = NULL;
 #elif HAVE_ALIGNED_MALLOC
     ptr = _aligned_malloc(size, ALIGN);
+#elif HAVE_MMAP
+    ptr = mmap(NULL, size, 0x01 | 0x02, 0x1000 | 0x0002, -1, 0);
+    if(!ptr && !size) {
+        size = 1;
+        ptr= av_malloc(1);
+        return ptr;
+    }
 #elif HAVE_MEMALIGN
 #ifndef __DJGPP__
     ptr = memalign(ALIGN, size);
@@ -193,9 +224,10 @@ void *av_malloc(size_t size)
         memset(ptr, FF_MEMORY_POISON, size);
 #endif
 	
-#if DEBUG_MEMORY_OUTPUT
+#if DEBUG_MEMORY_OUTPUT || HAVE_MMAP
 	allocationCount++;
 	AddToAllocationTable(ptr,size);
+#if DEBUG_MEMORY_OUTPUT
 	if(printCount % 100 == 0)
 	{
 		int totalAllocated = GetTotalAllocationSize();
@@ -203,6 +235,7 @@ void *av_malloc(size_t size)
 	}
 
 	printCount++;
+#endif
 #endif
     return ptr;
 }
@@ -229,6 +262,27 @@ void *av_realloc(void *ptr, size_t size)
     return ptr;
 #elif HAVE_ALIGNED_MALLOC
     return _aligned_realloc(ptr, size + !size, ALIGN);
+#elif HAVE_MMAP
+    int old_size = GetAllocationSize(ptr);
+    if(size > 0)
+    {
+        void *temp = mremap(ptr, old_size, size, 1);
+        if(temp)
+        {
+            AddToAllocationTable(temp, size);
+            RemoveFromAllocationTable(ptr);
+            ptr = temp;
+        }
+        else
+        {
+            ptr = (void*)-1;
+        }
+    }
+    else
+    {
+        ptr = (void*)-1;
+    }
+    return ptr;
 #else
     void* ret = realloc(ptr, size + !size);
 #if DEBUG_MEMORY_OUTPUT
@@ -292,9 +346,11 @@ int av_reallocp_array(void *ptr, size_t nmemb, size_t size)
 
 void av_free(void *ptr)
 {
-#if DEBUG_MEMORY_OUTPUT
+#if DEBUG_MEMORY_OUTPUT || HAVE_MMAP
 	if(ptr != NULL)
 	{
+		int size = GetAllocationSize(ptr);
+		munmap(ptr, size);
 		allocationCount--;
 		RemoveFromAllocationTable(ptr);
 	}
@@ -307,6 +363,7 @@ void av_free(void *ptr)
     }
 #elif HAVE_ALIGNED_MALLOC
     _aligned_free(ptr);
+#elif HAVE_MMAP
 #else
     free(ptr);
 #endif
