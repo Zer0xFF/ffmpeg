@@ -50,7 +50,7 @@
 #include "libavutil/random_seed.h"
 #include "libavutil/parseutils.h"
 #include "libavutil/opt.h"
-#include "libavutil/time.h"
+#include "libavutil/time_2.h"
 
 #include <stdarg.h>
 #include <unistd.h>
@@ -60,7 +60,7 @@
 #include <poll.h>
 #endif
 #include <errno.h>
-#include <time.h>
+#include "time_2.h"
 #include <sys/wait.h>
 #include <signal.h>
 #if HAVE_DLFCN_H

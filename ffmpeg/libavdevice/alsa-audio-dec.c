@@ -49,7 +49,7 @@
 #include "libavformat/internal.h"
 #include "libavutil/opt.h"
 #include "libavutil/mathematics.h"
-#include "libavutil/time.h"
+#include "libavutil/time_2.h"
 
 #include "avdevice.h"
 #include "alsa-audio.h"

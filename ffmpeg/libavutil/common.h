@@ -38,6 +38,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "time_2.h"
 
 #include "attributes.h"
 #include "version.h"

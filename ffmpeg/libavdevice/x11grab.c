@@ -41,8 +41,8 @@
 #include "libavutil/log.h"
 #include "libavutil/opt.h"
 #include "libavutil/parseutils.h"
-#include "libavutil/time.h"
-#include <time.h>
+#include "libavutil/time_2.h"
+#include "time_2.h"
 #include <X11/cursorfont.h>
 #include <X11/X.h>
 #include <X11/Xlib.h>

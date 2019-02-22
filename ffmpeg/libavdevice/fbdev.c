@@ -31,13 +31,13 @@
 #include <fcntl.h>
 #include <sys/ioctl.h>
 #include <sys/mman.h>
-#include <time.h>
+#include "time_2.h"
 #include <linux/fb.h>
 
 #include "libavutil/log.h"
 #include "libavutil/mem.h"
 #include "libavutil/opt.h"
-#include "libavutil/time.h"
+#include "libavutil/time_2.h"
 #include "libavutil/parseutils.h"
 #include "libavutil/pixdesc.h"
 #include "avdevice.h"

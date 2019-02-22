@@ -22,7 +22,7 @@
 #include "libavutil/avstring.h"
 #include "libavutil/dict.h"
 #include "libavutil/opt.h"
-#include "libavutil/time.h"
+#include "libavutil/time_2.h"
 #include "os_support.h"
 #include "avformat.h"
 #if CONFIG_NETWORK

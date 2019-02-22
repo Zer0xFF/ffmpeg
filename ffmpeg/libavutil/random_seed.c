@@ -29,7 +29,7 @@
 #endif
 #include <fcntl.h>
 #include <math.h>
-#include <time.h>
+#include "time_2.h"
 #include <string.h>
 #include "avassert.h"
 #include "internal.h"

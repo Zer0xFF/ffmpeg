@@ -26,7 +26,7 @@
 #include "swresample.h"
 
 #undef time
-#include "time.h"
+#include "time_2.h"
 #undef fprintf
 
 #define SAMPLES 1000

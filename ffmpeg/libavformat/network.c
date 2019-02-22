@@ -24,7 +24,7 @@
 #include "libavcodec/internal.h"
 #include "libavutil/avutil.h"
 #include "libavutil/mem.h"
-#include "libavutil/time.h"
+#include "libavutil/time_2.h"
 
 #if HAVE_THREADS
 #if HAVE_PTHREADS

@@ -17,5 +17,4 @@
 #define pthread_mutex_lock scePthreadMutexLock
 #define pthread_mutex_unlock scePthreadMutexUnlock
 
-
-
+#include <kernel.h>

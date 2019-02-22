@@ -27,7 +27,7 @@
  */
 
 #include <sys/time.h>
-#include <time.h>
+#include "time_2.h"
 
 #include "config.h"
 #include "libavutil/avstring.h"

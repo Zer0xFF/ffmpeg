@@ -33,7 +33,7 @@
 #include "eval.h"
 #include "log.h"
 #include "mathematics.h"
-#include "time.h"
+#include "time_2.h"
 #include "avstring.h"
 #include "timer.h"
 

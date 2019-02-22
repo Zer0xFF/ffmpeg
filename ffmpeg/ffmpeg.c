@@ -57,7 +57,7 @@
 #include "libavutil/imgutils.h"
 #include "libavutil/timestamp.h"
 #include "libavutil/bprint.h"
-#include "libavutil/time.h"
+#include "libavutil/time_2.h"
 #include "libavformat/os_support.h"
 
 #include "libavformat/ffm.h" // not public API
@@ -96,7 +96,7 @@
 #include <pthread.h>
 #endif
 
-#include <time.h>
+#include "time_2.h"
 
 #include "ffmpeg.h"
 #include "cmdutils.h"

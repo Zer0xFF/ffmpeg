@@ -35,6 +35,10 @@
 #include <windows.h>
 #endif
 
+#ifdef __ORBIS__
+#include "orbis/misc_kernel.h"
+#endif
+
 typedef struct {
     const AVClass *class;
     int   log_offset;

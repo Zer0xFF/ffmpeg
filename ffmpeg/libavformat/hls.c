@@ -30,7 +30,7 @@
 #include "libavutil/mathematics.h"
 #include "libavutil/opt.h"
 #include "libavutil/dict.h"
-#include "libavutil/time.h"
+#include "libavutil/time_2.h"
 #include "avformat.h"
 #include "internal.h"
 #include "avio_internal.h"

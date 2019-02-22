@@ -21,7 +21,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
-#include <time.h>
+#include "time_2.h"
 #include "avassert.h"
 #include "avstring.h"
 #include "bprint.h"

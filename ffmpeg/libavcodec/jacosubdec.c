@@ -24,7 +24,7 @@
  * @see http://unicorn.us.com/jacosub/jscripts.html
  */
 
-#include <time.h>
+#include "time_2.h"
 #include "ass.h"
 #include "jacosub.h"
 #include "libavutil/avstring.h"

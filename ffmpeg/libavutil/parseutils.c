@@ -21,7 +21,7 @@
  * misc parsing utilities
  */
 
-#include <time.h>
+#include "time_2.h"
 
 #include "avstring.h"
 #include "avutil.h"

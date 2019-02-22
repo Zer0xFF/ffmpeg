@@ -34,7 +34,7 @@
 #include "libavutil/opt.h"
 #include "libavutil/parseutils.h"
 #include "libavutil/pixdesc.h"
-#include "libavutil/time.h"
+#include "libavutil/time_2.h"
 #include "libavutil/timestamp.h"
 
 #include "libavcodec/bytestream.h"
